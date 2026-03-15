@@ -119,7 +119,7 @@ void viewAll(struct book lib[], int count){
 void searchBook(struct book lib[],int count){
 
     int bookId;
-    int found=false;
+    bool found=false;
 
     printf("Enter Book Id ");
     scanf("%d",&bookId);
@@ -138,7 +138,7 @@ void searchBook(struct book lib[],int count){
 void editBook(struct book lib[], int count){
 
     int bookId;
-    int found=false;
+    bool found=false;
 
     printf("Enter book ID");
     scanf("%d",&bookId);
@@ -171,7 +171,7 @@ void editBook(struct book lib[], int count){
 void removeBook(struct book lib[], int *count){
 
     int bookId;
-    int found = true;
+    bool found = false;
 
     printf("Enter Book ID to remove: ");
     scanf("%d",&bookId);
@@ -230,4 +230,89 @@ void HighestAndLowestValuedBooks(struct book lib[], int count){
     printf("\nLowest Valued Book is: %s\n",lib[lowest].title);
 }
 
+/*
+    what if 1 author have more books
+*/
 
+// search books by author's name
+void searchByAuthor(struct book lib[], int count){
+
+    char name[50];
+    bool found = false;
+
+    printf("Enter Author Name: ");
+    getchar();
+    fgets(name,50,stdin);
+
+    for(int i=0;i<count;i++){
+
+        if(strcmp(lib[i].auth.name, name) == 0){
+
+            printf("\nBook ID: %d\n",lib[i].bookId);
+            printf("Title: %s",lib[i].title);
+
+            found = true;
+        }
+    }
+
+    if(!found){
+        printf("No books found for this author\n");
+    }
+}
+
+
+// display full information of a book
+void bookFullInfo(struct book lib[], int count){
+
+    int bookId;
+    int found = 0;
+
+    printf("Enter Book ID: ");
+    scanf("%d",&bookId);
+
+    for(int i=0;i<count;i++){
+
+        if(lib[i].bookId == bookId){
+
+            printf("\nBook ID: %d\n",lib[i].bookId);
+            printf("Title: %s",lib[i].title);
+            printf("Author: %s",lib[i].auth.name);
+            printf("Nationality: %s",lib[i].auth.nationality);
+            printf("Price: %.2f\n",lib[i].price);
+
+            found = 1;
+            break;
+        }
+    }
+
+    if(!found){
+        printf("Book not found\n");
+    }
+}
+
+
+// search books by keyword in title
+void searchByKeyword(struct book lib[], int count){
+
+    char keyword[50];
+    int found = 0;
+
+    printf("Enter keyword: ");
+    getchar();
+    fgets(keyword,50,stdin);
+
+    for(int i=0;i<count;i++){
+
+        if(strstr(lib[i].title, keyword) != NULL){
+
+            printf("\nBook ID: %d\n",lib[i].bookId);
+            printf("Title: %s",lib[i].title);
+
+            found = 1;
+        }
+    }
+
+    if(!found){
+        printf("No books found with this keyword\n");
+    }
+}
