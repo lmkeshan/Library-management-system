@@ -95,21 +95,32 @@ int main(){
     return 0;
 }
 
-/*
-    there is an issue, if user enter an existing id?
-*/
-
 // add new books
 void addBook(struct book lib[], int *count){
 
-    if (*count >=50){
-        printf("Library is full \n");
+    if (*count >= 50){
+        printf("Library is full\n");
         return;
     }
 
+    int id;
+    int exists = 0;
+
     printf("Enter Book ID : ");
-    scanf("%d",&lib[*count].bookId);
+    scanf("%d",&id);
     getchar();
+
+    for(int i = 0; i < *count; i++){
+        if(lib[i].bookId == id){
+            exists = 1;
+            break;
+        }
+    }
+    if(exists){
+        printf("Book ID already exists!\n");
+        return;
+    }
+    lib[*count].bookId = id;
 
     printf("Enter Book Title : ");
     fgets(lib[*count].title,50,stdin);
@@ -125,7 +136,7 @@ void addBook(struct book lib[], int *count){
 
     (*count)++;
 
-    printf("Book added successfully \n");
+    printf("Book added successfully\n");
 }
 
 //view all books
@@ -255,10 +266,6 @@ void HighestAndLowestValuedBooks(struct book lib[], int count){
     printf("\nLowest Valued Book is: %s\n",lib[lowest].title);
 }
 
-/*
-    what if 1 author have more books
-*/
-
 // search books by author's name
 void searchByAuthor(struct book lib[], int count){
 
@@ -284,7 +291,6 @@ void searchByAuthor(struct book lib[], int count){
         printf("No books found for this author\n");
     }
 }
-
 
 // display full information of a book
 void bookFullInfo(struct book lib[], int count){
@@ -314,7 +320,6 @@ void bookFullInfo(struct book lib[], int count){
         printf("Book not found\n");
     }
 }
-
 
 // search books by keyword in title
 void searchByKeyword(struct book lib[], int count){
