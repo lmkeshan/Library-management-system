@@ -24,54 +24,75 @@ void editBook(struct book lib[], int count);
 void removeBook(struct book lib[],int *count);
 void totalBooks(struct book lib[], int count);
 void HighestAndLowestValuedBooks(struct book lib[], int count);
-
+void searchByAuthor(struct book lib[], int count);
+void bookFullInfo(struct book lib[], int count);
+void searchByKeyword(struct book lib[], int count);
 
 int main(){
 
-    int menu=0;
-    int count=0;
+    int menu = 0;
+    int count = 0;
 
-    printf("_____________________ Menu _____________________\n");
-    printf("\n 1: Add new Book\n 2: View all Book\n 3: Search a Book\n 4: Edit Book Details\n 5: Remove Book\n");
-    printf(" 6: Total Value of all Books\n 7: Highest & Lowest valued Books\n 8: Search Books by Author's name\n 9: Book full info\n10: Search by keywords ");
-    printf("\n\nChoose an option : ");
-    scanf("%d",&menu);
+    while(menu != 11){
 
-    switch(menu){
-    case 1:
-        //function
-        break;
-    case 2:
-        //func
-        break;
-    case 3:
-        //func
-        break;
-    case 4:
-        //func
-        break;
-    case 5:
-        //func
-        break;
-    case 6:
-        //func
-        break;
-    case 7:
-        //func
-        break;
-    case 8:
-        //func
-        break;
-    case 9:
-        //func
-        break;
-    case 10:
-        //func
-        break;
-    default:
-        printf("Invalid selection!");
+        printf("\n_____________________ Menu _____________________\n");
+        printf("\n 1: Add new Book\n 2: View all Book\n 3: Search a Book\n 4: Edit Book Details\n 5: Remove Book\n");
+        printf(" 6: Total Value of all Books\n 7: Highest & Lowest valued Books\n 8: Search Books by Author's name\n 9: Book full info\n10: Search by keywords\n11: Exit");
+        printf("\n\nChoose an option : ");
+        scanf("%d",&menu);
+
+        switch(menu){
+
+        case 1:
+            addBook(library,&count);
+            break;
+
+        case 2:
+            viewAll(library,count);
+            break;
+
+        case 3:
+            searchBook(library,count);
+            break;
+
+        case 4:
+            editBook(library,count);
+            break;
+
+        case 5:
+            removeBook(library,&count);
+            break;
+
+        case 6:
+            totalBooks(library,count);
+            break;
+
+        case 7:
+            HighestAndLowestValuedBooks(library,count);
+            break;
+
+        case 8:
+            searchByAuthor(library,count);
+            break;
+
+        case 9:
+            bookFullInfo(library,count);
+            break;
+
+        case 10:
+            searchByKeyword(library,count);
+            break;
+
+        case 11:
+            printf("Exiting program...\n");
+            break;
+
+        default:
+            printf("Invalid selection!\n");
+        }
     }
 
+    return 0;
 }
 
 /*
@@ -110,6 +131,10 @@ void addBook(struct book lib[], int *count){
 //view all books
 void viewAll(struct book lib[], int count){
 
+    if(count==0){
+        printf("No books available yet.");
+    }
+
     for(int i=0;i<count;i++){
         printf("%d\t%d\t%s\n",i+1,lib[i].bookId,lib[i].title);
     }
@@ -119,7 +144,7 @@ void viewAll(struct book lib[], int count){
 void searchBook(struct book lib[],int count){
 
     int bookId;
-    bool found=false;
+    int found=false;
 
     printf("Enter Book Id ");
     scanf("%d",&bookId);
@@ -140,7 +165,7 @@ void editBook(struct book lib[], int count){
     int bookId;
     bool found=false;
 
-    printf("Enter book ID");
+    printf("Enter book ID : ");
     scanf("%d",&bookId);
 
     for(int i=0;i<count;i++){
