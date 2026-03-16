@@ -29,10 +29,8 @@ void bookFullInfo(struct book lib[], int count);
 void searchByKeyword(struct book lib[], int count);
 
 int main(){
-
     int menu = 0;
     int count = 0;
-
     while(menu != 11){
 
         printf("\n_____________________ Menu _____________________\n");
@@ -91,7 +89,6 @@ int main(){
             printf("Invalid selection!\n");
         }
     }
-
     return 0;
 }
 
@@ -102,14 +99,12 @@ void addBook(struct book lib[], int *count){
         printf("Library is full\n");
         return;
     }
-
     int id;
     int exists = 0;
 
     printf("Enter Book ID : ");
     scanf("%d",&id);
     getchar();
-
     for(int i = 0; i < *count; i++){
         if(lib[i].bookId == id){
             exists = 1;
@@ -135,7 +130,6 @@ void addBook(struct book lib[], int *count){
     scanf("%f",&lib[*count].price);
 
     (*count)++;
-
     printf("Book added successfully\n");
 }
 
@@ -145,7 +139,6 @@ void viewAll(struct book lib[], int count){
     if(count==0){
         printf("No books available yet.");
     }
-
     for(int i=0;i<count;i++){
         printf("%d\t%d\t%s\n",i+1,lib[i].bookId,lib[i].title);
     }
@@ -156,7 +149,6 @@ void searchBook(struct book lib[],int count){
 
     int bookId;
     int found=false;
-
     printf("Enter Book Id ");
     scanf("%d",&bookId);
 
@@ -175,7 +167,6 @@ void editBook(struct book lib[], int count){
 
     int bookId;
     bool found=false;
-
     printf("Enter book ID : ");
     scanf("%d",&bookId);
 
@@ -208,25 +199,20 @@ void removeBook(struct book lib[], int *count){
 
     int bookId;
     bool found = false;
-
     printf("Enter Book ID to remove: ");
     scanf("%d",&bookId);
 
     for(int i=0;i<*count;i++){
-
         if(lib[i].bookId == bookId){
-
             for(int j=i;j<*count-1;j++){
                 lib[j] = lib[j+1];
             }
             (*count)--;
-
             printf("Book removed successfully\n");
             found = true;
             break;
         }
     }
-
     if(!found){
         printf("Book not found\n");
     }
@@ -234,13 +220,10 @@ void removeBook(struct book lib[], int *count){
 
 // total value of all books
 void totalBooks(struct book lib[], int count){
-
     float total = 0;
-
     for(int i=0; i<count; i++){
         total += lib[i].price;
     }
-
     printf("Total value of all books: %.2f\n", total);
 }
 
@@ -253,7 +236,6 @@ void HighestAndLowestValuedBooks(struct book lib[], int count){
     }
     int highest = 0;
     int lowest = 0;
-
     for(int i=1; i<count; i++){
         if(lib[i].price > lib[highest].price){
             highest = i;
@@ -271,18 +253,15 @@ void searchByAuthor(struct book lib[], int count){
 
     char name[50];
     bool found = false;
-
     printf("Enter Author Name: ");
     getchar();
     fgets(name,50,stdin);
 
     for(int i=0;i<count;i++){
-
         if(strcmp(lib[i].auth.name, name) == 0){
 
             printf("\nBook ID: %d\n",lib[i].bookId);
             printf("Title: %s",lib[i].title);
-
             found = true;
         }
     }
@@ -297,12 +276,10 @@ void bookFullInfo(struct book lib[], int count){
 
     int bookId;
     int found = 0;
-
     printf("Enter Book ID: ");
     scanf("%d",&bookId);
 
     for(int i=0;i<count;i++){
-
         if(lib[i].bookId == bookId){
 
             printf("\nBook ID: %d\n",lib[i].bookId);
@@ -310,12 +287,10 @@ void bookFullInfo(struct book lib[], int count){
             printf("Author: %s",lib[i].auth.name);
             printf("Nationality: %s",lib[i].auth.nationality);
             printf("Price: %.2f\n",lib[i].price);
-
             found = 1;
             break;
         }
     }
-
     if(!found){
         printf("Book not found\n");
     }
@@ -330,18 +305,16 @@ void searchByKeyword(struct book lib[], int count){
     printf("Enter keyword: ");
     getchar();
     fgets(keyword,50,stdin);
+    keyword[strcspn(keyword,"\n")] = 0;
 
     for(int i=0;i<count;i++){
-
         if(strstr(lib[i].title, keyword) != NULL){
 
             printf("\nBook ID: %d\n",lib[i].bookId);
             printf("Title: %s",lib[i].title);
-
             found = 1;
         }
     }
-
     if(!found){
         printf("No books found with this keyword\n");
     }
